@@ -1,0 +1,192 @@
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [isLogin, setIsLogin] = useState(true);
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [registerData, setRegisterData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // Login input handler
+  const handleLoginChange = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Registration input handler
+  const handleRegisterChange = (e) => {
+    setRegisterData({
+      ...registerData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Sign In
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (!loginData.email || !loginData.password) {
+      setMessage("Please fill all fields");
+      return;
+    }
+
+    setMessage("Login successful!");
+    console.log("Login Data:", loginData);
+  };
+
+  // Sign Up
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    if (
+      !registerData.name ||
+      !registerData.email ||
+      !registerData.password ||
+      !registerData.confirmPassword
+    ) {
+      setMessage("Please fill all fields");
+      return;
+    }
+
+    if (registerData.password !== registerData.confirmPassword) {
+      setMessage("Passwords do not match!");
+      return;
+    }
+
+    setMessage("Registration successful!");
+    console.log("Registration Data:", registerData);
+  };
+
+  return (
+    <div className="container">
+      <div className="form-box">
+
+        <h1>{isLogin ? "Sign In" : "Sign Up"}</h1>
+
+        <p className="subtitle">
+          {isLogin
+            ? "Welcome back! Please login."
+            : "Create your new account."}
+        </p>
+
+        {message && <p className="message">{message}</p>}
+
+        {isLogin ? (
+          // LOGIN FORM
+          <form onSubmit={handleLogin}>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              value={loginData.email}
+              onChange={handleLoginChange}
+              required
+            />
+
+            <div className="password-box">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter Password"
+                value={loginData.password}
+                onChange={handleLoginChange}
+                required
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+
+            <button type="submit" className="submit-btn">
+              Sign In
+            </button>
+
+          </form>
+        ) : (
+          // REGISTRATION FORM
+          <form onSubmit={handleRegister}>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Full Name"
+              value={registerData.name}
+              onChange={handleRegisterChange}
+              required
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              value={registerData.email}
+              onChange={handleRegisterChange}
+              required
+            />
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Create Password"
+              value={registerData.password}
+              onChange={handleRegisterChange}
+              required
+              minLength={6}
+            />
+
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={registerData.confirmPassword}
+              onChange={handleRegisterChange}
+              required
+            />
+
+            <button type="submit" className="submit-btn">
+              Sign Up
+            </button>
+
+          </form>
+        )}
+
+        <div className="toggle-text">
+          {isLogin
+            ? "Don't have an account?"
+            : "Already have an account?"}
+
+          <span
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setMessage("");
+            }}
+          >
+            {isLogin ? " Sign Up" : " Sign In"}
+          </span>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default App;
