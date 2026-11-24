@@ -1,0 +1,24 @@
+{
+  "name": "react-login-and-registration-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2500032179/react-login-registration.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/2500032179/react-login-registration/issues"
+  },
+  "homepage": "https://github.com/2500032179/react-login-registration#readme",
+  "devDependencies": {
+    "vite": "^8.3.8"
+  }
+}
